@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: Talancer
+
+  datasource:
+#    url: jdbc:mysql://localhost:3306/talancer?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://mysql:3306/talancer?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: "0000"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+
+jwt:
+  access-token-expiration: 604800
+
+server:
+  port: 8080
+
+gemini:
+  key: ${GEMINI_API_KEY}
+
+ai:
+  server:
+    base-url: ${AI_SERVER_BASE_URL:http://ai:8001}
+
+minio:
+  endpoint: ${MINIO_ENDPOINT:http://minio:9000}
+  access-key: ${MINIO_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_SECRET_KEY:minioadmin}
+  bucket: ${MINIO_BUCKET:talancer-audio}

@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.3'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'Talancer'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.ai:spring-ai-bom:1.0.0-M6"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation("org.springframework:spring-jdbc:7.0.5")
+
+    // JJWT API
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+
+    // JJWT 구현체
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+
+    // JSON 처리를 위한 Jackson 연동
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+
+    // Swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
+
+    // Gemini API
+    implementation 'com.google.genai:google-genai:0.5.0'
+
+    // 텍스트 파일 처리
+    implementation 'commons-io:commons-io:2.14.0'
+    implementation 'io.minio:minio:8.5.12'
+
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
